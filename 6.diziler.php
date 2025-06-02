@@ -8,7 +8,7 @@
     echo $sayilar[0];
     echo "<br>";
 
-    // 2. associative arrays (key-value)
+    // 2. associative-ilişkisel arrays (key-value)
     $plaka_bilgileri=array(
         41=>"Kocaeli",
         66=>"Yozgat",

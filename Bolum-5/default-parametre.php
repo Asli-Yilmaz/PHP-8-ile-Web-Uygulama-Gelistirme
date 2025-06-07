@@ -8,4 +8,6 @@
     echo $sonuc;
      $sonuc=selamlama()."<br>";
     echo $sonuc;
+     $sonuc=selamlama("aslı")."<br>";
+    echo $sonuc;
 ?>

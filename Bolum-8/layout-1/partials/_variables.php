@@ -1,0 +1,1 @@
+<?php $urunler= array("samsung s22","samsung s23", "samsung s24", "samsung s25", "samsung s26")?>

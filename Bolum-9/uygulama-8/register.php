@@ -11,27 +11,41 @@
 <?php include "../partials/_navbar.php"?>
 
 <?php
+    $username=$email=$password=$repassword=$city=$hobiler="";
+    $usernameErr=$emailErr=$passwordErr=$repasswordErr=$cityErr=$hobilerErr="";
     if($_SERVER["REQUEST_METHOD"]=="POST"){
-        $username=$_POST["username"];
-        $email=$_POST["email"];
-        $password=$_POST["password"];
-        $repassword=$_POST["repassword"];
-        $city=$_POST["city"];
-        $hobiler=$_POST["hobiler"];
-
-        echo $username."<br>";
-        echo $email."<br>";
-        echo $password."<br>";
-        echo $repassword."<br>";
-        echo $city."<br>";
-        foreach ($hobiler as $hobi) {
-            echo $hobi."<br>";
-        }
         
-
-        echo "<prev>";
-        print_r($_POST);
-        echo "<prev>";
+        
+        if(empty($_POST["username"])){
+            $usernameErr="Kullanıcı adı boş geçilemez"."<br>";
+        }else{
+            $username=$_POST["username"];
+        }
+        if(empty($_POST["email"])){
+            $emailErr="E-posta boş geçilemez"."<br>";
+        }else{
+            $email=$_POST["email"];
+        }
+        if(empty($_POST["password"])){
+            $passwordErr= "Şifre boş geçilemez"."<br>";
+        }else{
+            $password=$_POST["password"];
+        }
+        if($_POST["password"]!=$_POST["repassword"]){
+            $repasswordErr= "Parola tekrar alanı eşleşmiyor!"."<br>";
+        }else{
+            $repassword=$_POST["repassword"];
+        }
+        if($_POST["city"]==-1){
+            $cityErr= "Lütfen şehir seçiniz."."<br>";
+        }else{
+            $city=$_POST["city"];
+        }
+        if(!isset($_POST["hobiler"])){
+            $hobilerErr= "Hobiler boş geçilemez"."<br>";
+        }else{
+            $hobiler=$_POST["hobiler"];
+        }
 
 
     }
@@ -45,18 +59,22 @@
                     <div class="mb-3">
                         <label for="username">Kullanıcı Adı</label>
                         <input type="text" name="username" id="form-control">
+                        <div class="text-danger"><?php echo $usernameErr;?></div>
                     </div>
                     <div class="mb-3">
                         <label for="email">E-posta</label>
                         <input type="email" name="email" id="form-control">
+                        <div class="text-danger"><?php echo $emailErr;?></div>
                     </div>
                     <div class="mb-3">
                         <label for="password">Parola</label>
                         <input type="password" name="password" id="form-control">
+                        <div class="text-danger"><?php echo $passwordErr;?></div>
                     </div>
                     <div class="mb-3">
                         <label for="repassword">Parola Tekrar</label>
                         <input type="password" name="repassword" id="form-control">
+                        <div class="text-danger"><?php echo $repasswordErr;?></div>
                     </div>
                      <div class="mb-3">
                         <label for="city">Şehir</label>
@@ -67,6 +85,7 @@
                             <option value="3" selected>Afyon</option>
                             <option value="4" selected>Ağrı</option>
                         </select>
+                        <div class="text-danger"><?php echo $cityErr;?></div>
                     </div>
                     <div class ="mb-3">
                         <label for="hobiler">Hobiler</label>
@@ -82,6 +101,7 @@
                             <input type="checkbox" name="hobiler[]" value="muzik" id="hobiler_0">
                             <label for="hobiler_0"class="form-check-label">Müzik</label>
                         </div>
+                        <div class="text-danger"><?php echo $hobilerErr;?></div>
                     </div>
                     <button type="submit" class="btn btn-primary">Kayıt Ol</button>
                 </form>

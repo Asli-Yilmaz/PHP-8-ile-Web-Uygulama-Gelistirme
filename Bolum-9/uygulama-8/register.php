@@ -58,17 +58,17 @@
                 <form action="register.php" method="post">
                     <div class="mb-3">
                         <label for="username">Kullanıcı Adı</label>
-                        <input type="text" name="username" id="form-control">
+                        <input type="text" name="username" id="form-control" value="<?php echo $username;?>">
                         <div class="text-danger"><?php echo $usernameErr;?></div>
                     </div>
                     <div class="mb-3">
                         <label for="email">E-posta</label>
-                        <input type="email" name="email" id="form-control">
+                        <input type="email" name="email" id="form-control" value="<?php echo $email;?>">
                         <div class="text-danger"><?php echo $emailErr;?></div>
                     </div>
                     <div class="mb-3">
                         <label for="password">Parola</label>
-                        <input type="password" name="password" id="form-control">
+                        <input type="password" name="password" id="form-control" value="<?php echo $password;?>">
                         <div class="text-danger"><?php echo $passwordErr;?></div>
                     </div>
                     <div class="mb-3">
@@ -78,12 +78,15 @@
                     </div>
                      <div class="mb-3">
                         <label for="city">Şehir</label>
-                        <select name="city" class="form-select"> 
+                        <select name="city" class="form-select" > 
                             <option value="-1" selected>Şehir Seçiniz</option>
-                            <option value="1" selected>Adana</option>
-                            <option value="2" selected>Adıyaman</option>
-                            <option value="3" selected>Afyon</option>
-                            <option value="4" selected>Ağrı</option>
+
+                            <?php foreach ($sehirler as $plaka=>$sehir):?>
+                                <option value="<?php echo $plaka;?>"
+                                    <?php echo $city==$plaka? ' selected':'' ?>>
+                                        <?php echo $sehir;?>
+                                </option>
+                            <?php endforeach;?>
                         </select>
                         <div class="text-danger"><?php echo $cityErr;?></div>
                     </div>

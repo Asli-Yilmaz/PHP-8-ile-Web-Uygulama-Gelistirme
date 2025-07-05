@@ -6,6 +6,13 @@ $kategoriler=array(
         array("kategori_adi"=>"Ofis Uygulamaları","aktif"=>false),
         array("kategori_adi"=>"Mobil Uygulamalar","aktif"=>false),
     );
+
+$sehirler=array(
+    "1"=>"Adana",
+    "2"=>"Adıyaman",
+    "3"=>"Afyon",
+    "4"=>"Ağrı",
+);
 $kurslar=array(
         1=>array(
             "baslik"=>"Php Kursu",

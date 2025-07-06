@@ -15,31 +15,50 @@
         // print_r($_POST);
         // echo "<pre>";
 
-        $successfulUpload=true;
-        $dest_path="./uploadedFiles/";
-        $fileName=$_FILES["fileToUpload"]["name"];
-        $fileSize=$_FILES["fileToUpload"]["size"];
+        if(isset($_FILES["fileToUpload"]) && $_FILES["fileToUpload"]["error"]==0){
+            $successfulUpload=true;
+            $dest_path="./uploadedFiles/";
+            $fileName=$_FILES["fileToUpload"]["name"];
+            $fileSize=$_FILES["fileToUpload"]["size"];
+            $fileExtensions=array("jpg","png","jpeg");
 
-        if(empty($fileName)){
-            $successfulUpload=false;
-            echo "Dosya Seçiniz."."<br>";
-        }
-
-        if($fileSize>50000){
-            $successfulUpload=false;
-            echo "Dosya Boyutu Fazla"."<br>";
-        }
-
-        $fileSourcePath=$_FILES["fileToUpload"]["tmp_name"];
-        $fileDestPath=$dest_path.$fileName;
-        if($successfulUpload){
-
-            if(move_uploaded_file($fileSourcePath,$fileDestPath)){
-            echo "dosya yüklendi"."<br>";
-            }else{
-                echo "Dosya Yüklenemedi"."<br>";
+            if(empty($fileName)){
+                $successfulUpload=false;
+                echo "Dosya Seçiniz."."<br>";
             }
+
+            if($fileSize>50000){
+                $successfulUpload=false;
+                echo "Dosya Boyutu Fazla"."<br>";
+            }
+            //uzantı kontrolü için dosya adını parçalıyoruz
+            $uploadedFileName=explode(".",$fileName);
+            $fileName_woExtention=$uploadedFileName[0];
+            $fileName_extention=$uploadedFileName[1];
+
+            if(!in_array($fileName_extention,$fileExtensions)){
+                $successfulUpload=false;
+                echo "Dosya uzantısı geçersiz."."<br>";
+                echo "Geçerli Dosya Uzanlıları: ".implode(", ",$fileExtensions);
+            }
+            
+            //md5 hash algoritması ile filename şifrelenir.
+            $new_fileName=md5(time().$fileName_woExtention).".".$fileName_extention;
+
+            $fileSourcePath=$_FILES["fileToUpload"]["tmp_name"];
+            $fileDestPath=$dest_path.$new_fileName;
+            if($successfulUpload){
+
+                if(move_uploaded_file($fileSourcePath,$fileDestPath)){
+                echo "dosya yüklendi"."<br>";
+                }else{
+                    echo "Dosya Yüklenemedi"."<br>";
+                }
+            }
+        }else{
+            echo "Bir Hata Oluştu.";
         }
+        
        
     }
 ?>

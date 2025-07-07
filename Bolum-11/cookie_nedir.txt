@@ -1,6 +1,7 @@
 kullanıcı bir sayfayı ziyaret ettiğinde veya bir arama işlemi yapıtğında
 server tarafı istenilen sonuçlarla birlikte bir de cookie gönderir. bu cookie de kullanıcının 
-tarayıcısında saklanan veridir. kullanıcın kullanıcı adı, şifresi gibi veriler olabilir.
+tarayıcısında saklanan veridir. kullanıcın kullanıcı adı gibi veriler olabilir.
 uygulama tarafında cookie oluşturup kullanıcıya/tarayıcıya göndermemiz gerekli. 
 böylece kullanıcı siteyi bir daha ziyaret ettiğinde bu bilgiler yine cookie
 aracılığıyla servera taşınır.
+kullanıcı ve server arasındaki iletişimin sonraki ziyaretlerde de hatırlanmasını sağlar.

@@ -1,7 +1,11 @@
 <?php 
 const title="Popüler Kurslar";
-const db_username="asliyilmaz";
-const db_password="12345";
+
+const db_user=array(
+    "username"=>"asliyilmaz13",
+    "password"=>"12345",
+    "name"=>"Aslı YILMAZ",
+);
 $kategoriler=array(
         array("kategori_adi"=>"Programlama","aktif"=>true),
         array("kategori_adi"=>"Veri Analizi","aktif"=>false),

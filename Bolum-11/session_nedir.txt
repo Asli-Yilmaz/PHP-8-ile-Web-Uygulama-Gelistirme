@@ -2,3 +2,10 @@ cookieler kullanıcıların tarayıcısında saklanır ancak şifre gibi bazı
 hassas verileri tarayıcıda saklamak uygun değilidr.
 bu gibi tarayıcıda olmasını istemediğimiz verileri server tarafında
 tutarız ve bu verilere de session deriz.
+her request ve respons ilişkisi bağımsızdır kendinden önceki ve
+sonraki responslar veya requestlerle bağlantıları yoktur.
+bir web sitesini ziyaret eden her kullanıcı için server tarafından
+bir session oluşturulur. 
+hangi kullanıcının hangi sessionu kullandığı
+kullanıcı tarafında tutulan sessionId verisi ile tutulur. cookie 
+içindeki sessionId zadece serverdaki sessionun adresini tutar.

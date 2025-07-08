@@ -8,9 +8,12 @@
         fclose($myfile);
         return $jsonArray;
     }
-    function kursEkle(&$kurslar, string $baslik, string $altBaslik, string $resim, string $yayinTarihi,
+    function kursEkle( string $baslik, string $altBaslik, string $resim, string $yayinTarihi,
     int $yorumSayisi=0, int $begeniSayisi=0, bool $onay=true){
-        $yeni_kurs[count($kurslar)+1]=array(
+        //db.json içinde olan tüm veriler çekilir
+        $db=getDb();
+        //kategoriler nesnesine yeni kurs bilgileri eklenir
+        array_push($db["kurslar"],array(
             "baslik"=>$baslik,
             "altBaslik"=>$altBaslik,
             "resim"=>$resim,
@@ -18,9 +21,12 @@
             "yorumSayisi"=>$yorumSayisi,
             "begeniSayisi"=>$begeniSayisi,
             "onay"=>$onay
-        );
-
-        $kurslar=array_merge($kurslar,$yeni_kurs);
+        ));
+        
+        //kurslara yenisi eklendikten sonra güncel versiyonu yeniden db.json içne yazılır.
+        $myfile=fopen("db.json","w");
+        fwrite($myfile,json_encode($db,JSON_PRETTY_PRINT));
+        fclose($myfile);
     }  
 
     function urlDuzenle($baslik){        

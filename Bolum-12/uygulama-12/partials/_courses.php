@@ -1,5 +1,5 @@
 
-                <?php foreach($kurslar as $key=>$kurs):?>
+                <?php foreach(getDb()["kurslar"] as $key=>$kurs):?>
                     <!--if bloğunun açılışı-->
                     <?php if ($kurs["onay"]):  ?>
                         <div class="card mb-3">

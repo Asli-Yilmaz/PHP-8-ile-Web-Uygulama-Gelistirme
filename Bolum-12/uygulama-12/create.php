@@ -7,13 +7,26 @@
 
 
 ?>
+<?php 
+    if(!empty($_POST)){        
+    
+        $title=$_POST["title"];
+        $subtitle=$_POST["subtitle"];
+        $image=$_POST["image"];
+        $dateAdded=$_POST["dateAdded"];
+
+        kursEkle($title,$subtitle,$image,$dateAdded);
+        
+        header("location: index.php");
+    }
+?>
 <?php include "partials/_header.php"?>
 <?php include "partials/_navbar.php"?>
     <!-- div.container yaz enter bas -->
     <div class="container my-3">
         <div class="row">
             <div class="col-12">
-                <form action="index.php" method="post">
+                <form action="create.php" method="post">
                     <div class="mb-3">
                         <label for="title">Başlık</label>
                         <input type="text" name="title" id="title" class="form-control">

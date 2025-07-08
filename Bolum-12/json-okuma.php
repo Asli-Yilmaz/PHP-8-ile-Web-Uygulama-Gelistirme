@@ -1,5 +1,7 @@
 <?php
 
+    //önce json dosyası yazılır sonra decode edilir.
+
     $myfile=fopen("course.json","r");
     $size=filesize("course.json");
 

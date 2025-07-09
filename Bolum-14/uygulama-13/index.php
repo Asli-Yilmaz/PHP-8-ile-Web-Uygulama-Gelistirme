@@ -5,11 +5,7 @@
     //buradaki fonksiyonları functions klasorune ekledik
     require "libs/functions.php";
 
-    session_start();
-    if(isset($_SESSION["message"])){
-        echo "<div class='alert alert-primary mb-0 text-center'>".$_SESSION["message"]."</div>";
-        unset($_SESSION["message"]);
-    }
+    
 
 ?>
 

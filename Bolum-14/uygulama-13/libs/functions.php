@@ -11,6 +11,26 @@ use Dom\Mysql;
         return $sonuc;
     }
 
+    function getCategoryById(int $id){
+        include "ayar.php";
+        $query="SELECT * FROM kategoriler WHERE id='$id'";
+        $sonuc=mysqli_query($baglanti,$query);
+        mysqli_close($baglanti);
+        return $sonuc;
+    }
+
+    function createCategory(string $kategori){
+        include "ayar.php";
+        $query="INSERT INTO kategoriler(kategori_adi) VALUES (?);";
+        $statement=mysqli_prepare($baglanti,$query);
+        
+        mysqli_stmt_bind_param($statement,"s",$kategori);
+        mysqli_stmt_execute($statement);
+        mysqli_stmt_close($statement);
+
+        return $statement;
+    }
+
     function getDb(){
         $myfile=fopen("db.json","r");
         $size=filesize("db.json");

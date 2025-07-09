@@ -13,7 +13,7 @@
     //mysqli_fetch_row fonksitonu cursor mantığıyla çalıştığı için cursor
     //şuanda verilerin en sonundadır ve önceki verileri okumaz 
     //bunun için cursorü sıfırlayarak yenden en başa almak gerekir.
-    $sonuc=mysqli_query($baglanti,$query);//courser yeniden en başa alınır
+    $sonuc=mysqli_query($baglanti,$query);//coursor yeniden en başa alınır
     while($row=mysqli_fetch_row($sonuc)){
         echo $row[0]." ".$row[1]."<br>";
     }

@@ -1,7 +1,5 @@
 <?php
 
-use Dom\Mysql;
-
     function getCategories(){
         include "ayar.php";
 
@@ -41,6 +39,25 @@ use Dom\Mysql;
         $statement=mysqli_prepare($baglanti,$query);
         
         mysqli_stmt_bind_param($statement,"s",$kategori);
+        mysqli_stmt_execute($statement);
+        mysqli_stmt_close($statement);
+
+        return $statement;
+    }
+    function getCourses(){
+        include "ayar.php";
+
+        $query="SELECT * FROM kurslar";
+        $sonuc=mysqli_query($baglanti,$query);
+        mysqli_close($baglanti);
+        return $sonuc;
+    }
+    function createCourse(string $baslik, string $altBaslik,string $resim, int $yorumSayisi=0, int $begeniSayisi=0,int $onay=0){
+        include "ayar.php";
+        $query="INSERT INTO kurslar(baslik,altBaslik,resim,yorumSayisi,begeniSayisi,onay) VALUES (?,?,?,?,?,?);";
+        $statement=mysqli_prepare($baglanti,$query);
+        
+        mysqli_stmt_bind_param($statement,"sssiii",$baslik,$altBaslik,$resim,$yorumSayisi,$begeniSayisi,$onay);
         mysqli_stmt_execute($statement);
         mysqli_stmt_close($statement);
 
@@ -99,4 +116,6 @@ use Dom\Mysql;
 
         return $data;
     }
+
+
 ?>

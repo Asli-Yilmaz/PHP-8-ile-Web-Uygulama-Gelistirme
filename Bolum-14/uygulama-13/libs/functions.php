@@ -79,6 +79,17 @@
         mysqli_close($baglanti);
         return $sonuc;
     }
+    function uploadImage(array $file){
+        if(isset($file)){
+            $dest_path="./img/";
+
+            $fileName=$file["name"];
+            $fileSourcePath=$file["tmp_name"];
+            $fileDestPath=$dest_path.$fileName;
+
+            move_uploaded_file($fileSourcePath,$fileDestPath);
+        }
+    }
 
     function getDb(){
         $myfile=fopen("db.json","r");

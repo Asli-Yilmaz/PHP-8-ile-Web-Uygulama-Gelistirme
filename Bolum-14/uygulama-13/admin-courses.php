@@ -22,9 +22,10 @@
             <table class="table table-bordered">
                 <thead>
                     <tr>
-                        <th style="width:50px;">Id</th>
+                        <th style="width:100px;"">Id</th>
+                        <th style="width:120px;">Resim</th>
                         <th>Başlık</th>
-                        <th>Yayin Tarihi</th>
+                        <th>onay</th>
                         <th style="width:50px;">Onay</th>
                         <th style="width:130px;"></th>
                     </tr>
@@ -34,6 +35,7 @@
                         while($course=mysqli_fetch_assoc($sonuc)): ?>
                         <tr>
                             <td><?php echo $course["id"]?></td>
+                            <td><img class="img-fluid" src="img/<?php echo $course["resim"]?>" alt=""></td>
                             <td><?php echo $course["baslik"]?></td>
                             <td><?php echo $course["yayinTarihi"]?></td>
                             <td>

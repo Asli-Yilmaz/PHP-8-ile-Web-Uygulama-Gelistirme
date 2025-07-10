@@ -19,6 +19,22 @@ use Dom\Mysql;
         return $sonuc;
     }
 
+    function editCategory($id,string $category){
+        include "ayar.php";
+        $query="UPDATE kategoriler SET kategori_adi='$category' WHERE id='$id'";
+        $sonuc=mysqli_query($baglanti,$query);
+        mysqli_close($baglanti);
+        return $sonuc;
+    }
+
+    function deleteCategory($id){
+        include "ayar.php";
+        $query="DELETE FROM kategoriler WHERE id=$id";
+        $sonuc=mysqli_query($baglanti,$query);
+        mysqli_close($baglanti);
+        return $sonuc;
+    }
+
     function createCategory(string $kategori){
         include "ayar.php";
         $query="INSERT INTO kategoriler(kategori_adi) VALUES (?);";

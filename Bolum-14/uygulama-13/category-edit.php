@@ -28,10 +28,14 @@
             $category=safe_html($_POST["category"]);
         }
         if(empty($categoryErr)){
-            createCategory($category);
-            $_SESSION["message"]=$category." isimli kategori eklendi.";
-            $_SESSION["type"]="success";
-            header("location: admin-categories.php");
+            if(editCategory($id,$category)){
+                $_SESSION["message"]=$category." isimli kategori güncellendi.";
+                $_SESSION["type"]="success";
+                header("location: admin-categories.php");
+            }else{
+                echo "hata";
+            }
+            
         }
 
 

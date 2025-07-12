@@ -16,9 +16,9 @@
     $id=$_GET["id"];
     $sonuc=getCourseById($id);
     $selectedCourse=mysqli_fetch_assoc($sonuc);
-
+    $category=0;
     $baslik=$altBaslik=$resim="";
-    $baslikErr=$altBaslikErr=$resimErr="";
+    $baslikErr=$altBaslikErr=$resimErr=$categoryErr="";
     if($_SERVER["REQUEST_METHOD"]=="POST"){
         
         
@@ -38,9 +38,16 @@
             uploadImage($_FILES["imageFile"]); //dosayı projeye ekler
             $resim=$_FILES["imageFile"]["name"]; //dosya ismini veritabanına ekler
         }
+        if($_POST["category"]==0){
+            $categoryErr="Kategori bigisi boş geçilemez."."<br>";
+        }else{
+            $category=safe_html($_POST["category"]);
+        }
+
         $onay=$_POST["onay"]=="on"?1:0;
-        if(empty($baslikErr) && empty($altBaslikErr) && empty($resimErr) ){
-            editCourse($id,$baslik,$altBaslik,$resim,$onay);
+
+        if(empty($baslikErr) && empty($altBaslikErr) && empty($resimErr) && empty($categoryErr)){
+            editCourse($id,$baslik,$altBaslik,$resim,$category,$onay);
             $_SESSION["message"]=$baslik." isimli kurs güncellendi.";
             $_SESSION["type"]="success";
             header("location: admin-courses.php");
@@ -73,6 +80,23 @@
                             <div class="text-danger"><?php echo $resimErr;?></div>
                             <img src="img/<?php echo $selectedCourse["resim"];?>" style="width:150px;" alt="">
                         </div>
+                        <div class="mb-3">
+                            <label for="category" class="form-label">Kategori</label>
+                            <select name="category" id="category"class="form-select">
+                                <option value="0" selected>Seçiniz</option>
+                                <?php foreach(getCategories() as $c):?>
+                                    <option value="<?php echo $c["id"]?>">
+                                        <?php echo $c["kategori_adi"]?>
+                                    </option>
+                                <?php endforeach;?>
+                            </select>
+                            <!-- post back işleminde önceden seçilen verinin görünmesi için; -->
+                        <script type="text/javascript">
+                            document.getElementById("category").value="<?php echo $selectedCourse["kategori_id"];?>";
+                        </script>
+                        <div class="text-danger"><?php echo $categoryErr;?></div>
+                        </div>                    
+                        
                         <div class="form-check mb-3">
                         <input class="form-check-input" type="checkbox" id="onay" name="onay" 
                             <?php echo $selectedCourse["onay"]?"checked":"" ?>>

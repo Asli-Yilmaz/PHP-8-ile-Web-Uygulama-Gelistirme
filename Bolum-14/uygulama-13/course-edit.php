@@ -38,19 +38,21 @@
             uploadImage($_FILES["imageFile"]); //dosayı projeye ekler
             $resim=$_FILES["imageFile"]["name"]; //dosya ismini veritabanına ekler
         }
-        if($_POST["category"]==0){
-            $categoryErr="Kategori bigisi boş geçilemez."."<br>";
-        }else{
-            $category=safe_html($_POST["category"]);
-        }
 
         $onay=$_POST["onay"]=="on"?1:0;
-
+        $categories=$_POST["categories"];
+        print_r($categories);
         if(empty($baslikErr) && empty($altBaslikErr) && empty($resimErr) && empty($categoryErr)){
-            editCourse($id,$baslik,$altBaslik,$resim,$category,$onay);
-            $_SESSION["message"]=$baslik." isimli kurs güncellendi.";
-            $_SESSION["type"]="success";
-            header("location: admin-courses.php");
+            if(editCourse($id,$baslik,$altBaslik,$resim,$onay)){
+                clearCourseCategories($id);
+                if(count($categories)>0){
+                    addCourseCategories($id,$categories);
+                }
+                $_SESSION["message"]=$baslik." isimli kurs güncellendi.";
+                $_SESSION["type"]="success";
+                header("location: admin-courses.php");
+            }
+            
         }
 
 
@@ -59,9 +61,10 @@
     <!-- div.container yaz enter bas -->
     <div class="container my-3">
         <div class="card card-body">
+            <form  method="post" enctype="multipart/form-data">
             <div class="row">
                 <div class="col-9">                
-                    <form  method="post" enctype="multipart/form-data">
+                    
                         <div class="mb-3">
                             <label for="baslik">Başlık</label>
                             <input type="text" name="baslik" id="form-control" value="<?php echo $selectedCourse["baslik"];?>">
@@ -90,7 +93,7 @@
                         </div>
                         
                         <button type="submit" class="btn btn-primary">Güncelle</button>
-                    </form>
+                    
                 </div>
                 <div class="col-3">
                     <img src="img/<?php echo $selectedCourse["resim"];?>" class="fluid" alt="">
@@ -98,7 +101,7 @@
                     <?php foreach(getCategories() as $c):?>
                         <div class="form-check">
                             <label for="category_<?php echo $c["id"]?>"><?php echo $c["kategori_adi"]?></label>
-                            <input type="checkbox"  id="category_<?php echo $c["id"]?>" class="form-check-input"
+                            <input type="checkbox"  name="categories[]" value="<?php echo $c["id"]?>" id="category_<?php echo $c["id"]?>" class="form-check-input"
                                 <?php
                                     $selectedCategories=getCategoriesById($selectedCourse["id"]);
                                     foreach($selectedCategories as $cat){
@@ -124,6 +127,7 @@
 
                 </div>
             </div>
+            </form>
         </div>       
         
     </div>

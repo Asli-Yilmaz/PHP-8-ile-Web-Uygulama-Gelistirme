@@ -13,8 +13,7 @@
 <?php
     session_start();
     $baslik=$altBaslik=$resim=$yayinTarihi="";
-    $category=0;
-    $baslikErr=$altBaslikErr=$resimErr=$yayinTarihiErr=$categoryErr="";
+    $baslikErr=$altBaslikErr=$resimErr=$yayinTarihiErr="";
     
     if($_SERVER["REQUEST_METHOD"]=="POST"){
         
@@ -35,13 +34,8 @@
             uploadImage($_FILES["imageFile"]); //dosayı projeye ekler
             $resim=$_FILES["imageFile"]["name"]; //dosya ismini veritabanına ekler
         }
-        if($_POST["category"]==0){
-            $categoryErr="Kategori bigisi boş geçilemez."."<br>";
-        }else{
-            $category=safe_html($_POST["category"]);
-        }
-        if(empty($categoryErr) && empty($altBaslikErr) && empty($resimErr) && empty($categoryErr) ){
-            createCourse($baslik,$altBaslik,$resim,$category);
+        if(empty($altBaslikErr) && empty($resimErr) ){
+            createCourse($baslik,$altBaslik,$resim);
             $_SESSION["message"]=$baslik." isimli kurs eklendi.";
             $_SESSION["type"]="success";
             header("location: admin-courses.php");
@@ -74,23 +68,6 @@
                             <label for="imageFile" class="input-group-text">Yükle</label>                            
                         </div>
                         <div class="text-danger"><?php echo $resimErr;?></div>
-
-                        <div class="mb-3">
-                            <label for="category" class="form-label">Kategori</label>
-                            <select name="category" id="category"class="form-select">
-                                <option value="0" selected>Seçiniz</option>
-                                <?php foreach(getCategories() as $c):?>
-                                    <option value="<?php echo $c["id"]?>">
-                                        <?php echo $c["kategori_adi"]?>
-                                    </option>
-                                <?php endforeach;?>
-                            </select>
-                        </div>
-                        <!-- post back işleminde önceden seçilen verinin görünmesi için; -->
-                        <script type="text/javascript">
-                            document.getElementById("category").value="<?php echo $category;?>";
-                        </script>
-                        <div class="text-danger"><?php echo $categoryErr;?></div>
                         
                         <button type="submit" class="btn btn-primary">Kaydet</button>
                     </form>

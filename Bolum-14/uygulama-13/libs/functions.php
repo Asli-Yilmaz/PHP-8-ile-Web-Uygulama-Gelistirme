@@ -52,12 +52,30 @@
         mysqli_close($baglanti);
         return $sonuc;
     }
-    function createCourse(string $baslik, string $altBaslik,string $resim,int $kategori_id, int $yorumSayisi=0, int $begeniSayisi=0,int $onay=0){
+    function clearCourseCategories(int $kurs_id){
         include "ayar.php";
-        $query="INSERT INTO kurslar(baslik,altBaslik,resim,kategori_id,yorumSayisi,begeniSayisi,onay) VALUES (?,?,?,?,?,?,?);";
+        $query="DELETE FROM kurs_kategori WHERE kurs_id=$kurs_id";
+        $sonuc=mysqli_query($baglanti,$query);
+        mysqli_close($baglanti);
+        return $sonuc;
+    }
+    function addCourseCategories(int $kurs_id,array $kategoriler){
+        include "ayar.php";
+        $query="";
+        foreach($kategoriler as $kategori){
+            $query.="INSERT INTO kurs_kategori(kurs_id,kategori_id) values($kurs_id, $kategori);";
+            
+        }
+        $sonuc=mysqli_multi_query($baglanti,$query);
+        mysqli_close($baglanti);
+        return $sonuc;
+    }
+    function createCourse(string $baslik, string $altBaslik,string $resim, int $yorumSayisi=0, int $begeniSayisi=0,int $onay=0){
+        include "ayar.php";
+        $query="INSERT INTO kurslar(baslik,altBaslik,resim,yorumSayisi,begeniSayisi,onay) VALUES (?,?,?,?,?,?);";
         $statement=mysqli_prepare($baglanti,$query);
         
-        mysqli_stmt_bind_param($statement,"sssiiii",$baslik,$altBaslik,$resim,$kategori_id,$yorumSayisi,$begeniSayisi,$onay);
+        mysqli_stmt_bind_param($statement,"sssiii",$baslik,$altBaslik,$resim,$yorumSayisi,$begeniSayisi,$onay);
         mysqli_stmt_execute($statement);
         mysqli_stmt_close($statement);
 
@@ -78,10 +96,10 @@
         return $sonuc;
     }
 
-    function editCourse(int $id,string $baslik, string $altBaslik,string $resim, int $kategori_id,int $onay=0){
+    function editCourse(int $id,string $baslik, string $altBaslik,string $resim,int $onay=0){
         include "ayar.php";
 
-        $query="UPDATE kurslar SET baslik='$baslik', altBaslik='$altBaslik', resim='$resim',kategori_id=$kategori_id,onay=$onay WHERE id=$id;";
+        $query="UPDATE kurslar SET baslik='$baslik', altBaslik='$altBaslik', resim='$resim',onay=$onay WHERE id=$id;";
         $sonuc=mysqli_query($baglanti,$query);
         mysqli_close($baglanti);
         return $sonuc;

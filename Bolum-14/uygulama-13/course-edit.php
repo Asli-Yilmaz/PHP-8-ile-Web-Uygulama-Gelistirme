@@ -58,9 +58,9 @@
 ?>
     <!-- div.container yaz enter bas -->
     <div class="container my-3">
-        <div class="row">
-            <div class="col-12">
-                <div class="card card-body">
+        <div class="card card-body">
+            <div class="row">
+                <div class="col-9">                
                     <form  method="post" enctype="multipart/form-data">
                         <div class="mb-3">
                             <label for="baslik">Başlık</label>
@@ -78,24 +78,8 @@
                                 <label for="imageFile" class="input-group-text">Yükle</label>                            
                             </div>
                             <div class="text-danger"><?php echo $resimErr;?></div>
-                            <img src="img/<?php echo $selectedCourse["resim"];?>" style="width:150px;" alt="">
-                        </div>
-                        <div class="mb-3">
-                            <label for="category" class="form-label">Kategori</label>
-                            <select name="category" id="category"class="form-select">
-                                <option value="0" selected>Seçiniz</option>
-                                <?php foreach(getCategories() as $c):?>
-                                    <option value="<?php echo $c["id"]?>">
-                                        <?php echo $c["kategori_adi"]?>
-                                    </option>
-                                <?php endforeach;?>
-                            </select>
-                            <!-- post back işleminde önceden seçilen verinin görünmesi için; -->
-                        <script type="text/javascript">
-                            document.getElementById("category").value="<?php echo $selectedCourse["kategori_id"];?>";
-                        </script>
-                        <div class="text-danger"><?php echo $categoryErr;?></div>
-                        </div>                    
+                            
+                        </div>              
                         
                         <div class="form-check mb-3">
                         <input class="form-check-input" type="checkbox" id="onay" name="onay" 
@@ -107,6 +91,37 @@
                         
                         <button type="submit" class="btn btn-primary">Güncelle</button>
                     </form>
+                </div>
+                <div class="col-3">
+                    <img src="img/<?php echo $selectedCourse["resim"];?>" class="fluid" alt="">
+                    <hr>
+                    <?php foreach(getCategories() as $c):?>
+                        <div class="form-check">
+                            <label for="category_<?php echo $c["id"]?>"><?php echo $c["kategori_adi"]?></label>
+                            <input type="checkbox"  id="category_<?php echo $c["id"]?>" class="form-check-input"
+                                <?php
+                                    $selectedCategories=getCategoriesById($selectedCourse["id"]);
+                                    foreach($selectedCategories as $cat){
+                                        if($cat["id"]==$c["id"]){
+                                            echo "checked";
+                                            break;
+                                        }
+                                    }
+                                ?>
+                            
+                            >
+                        </div>
+                    <?php endforeach;?>
+
+                    <hr>
+                    <div class="form-check mb-3">
+                        <input class="form-check-input" type="checkbox" id="onay" name="onay" 
+                            <?php echo $selectedCourse["onay"]?"checked":"" ?>>
+                        <label class="form-check-label" for="onay">
+                        Onay
+                        </label>
+                    </div>
+
                 </div>
             </div>
         </div>       

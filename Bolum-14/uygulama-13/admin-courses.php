@@ -37,7 +37,20 @@
                             <td><?php echo $course["id"]?></td>
                             <td><img class="img-fluid" src="img/<?php echo $course["resim"]?>" alt=""></td>
                             <td><?php echo $course["baslik"]?></td>
-                            <td><?php echo $course["kategori_adi"]?></td>
+                            <td>
+                                <?php
+                                    echo "<ul>";
+                                    $result=getCategoriesById($course["id"]);
+                                    if(mysqli_num_rows($result)>0){
+                                        while($category=mysqli_fetch_assoc($result)){
+                                            echo "<li>".$category["kategori_adi"]."</li>";
+                                        }
+                                    }else{
+                                        echo "<li>Kategori seçilmedi</li>";
+                                    }
+                                    echo "</ul>";
+                                ?>
+                            </td>
                             <td>
                                 <?php if($course["onay"]):?>
                                     <i class="fas fa-check"></i>

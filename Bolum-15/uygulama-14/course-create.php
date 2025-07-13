@@ -12,8 +12,8 @@
 
 <?php
     session_start();
-    $baslik=$altBaslik=$resim=$yayinTarihi="";
-    $baslikErr=$altBaslikErr=$resimErr=$yayinTarihiErr="";
+    $baslik=$altBaslik=$resim=$yayinTarihi=$aciklama="";
+    $baslikErr=$altBaslikErr=$resimErr=$yayinTarihiErr=$aciklamaErr="";
     
     if($_SERVER["REQUEST_METHOD"]=="POST"){
         
@@ -28,6 +28,11 @@
         }else{
             $altBaslik=safe_html($_POST["altBaslik"]);
         }
+        if(empty($_POST["aciklama"])){
+            $aciklamaErr="Açıklama boş geçilemez."."<br>";
+        }else{
+            $aciklama=safe_html($_POST["aciklama"]);
+        }
          if(empty($_FILES["imageFile"]["name"])){
             $resimErr="Resim seçiniz."."<br>";
         }else{
@@ -35,7 +40,7 @@
             $resim=$_FILES["imageFile"]["name"]; //dosya ismini veritabanına ekler
         }
         if(empty($altBaslikErr) && empty($resimErr) ){
-            createCourse($baslik,$altBaslik,$resim);
+            createCourse($baslik,$altBaslik,$aciklama,$resim);
             $_SESSION["message"]=$baslik." isimli kurs eklendi.";
             $_SESSION["type"]="success";
             header("location: admin-courses.php");
@@ -63,6 +68,11 @@
                             <textarea name="altBaslik" class="form-control"><?php echo $altBaslik;?></textarea>
                             <div class="text-danger"><?php echo $altBaslikErr;?></div>
                         </div>
+                        <div class="mb-3">
+                            <label for="aciklama">Açıklama</label>
+                            <textarea name="aciklama" class="form-control"><?php echo $aciklama;?></textarea>
+                            <div class="text-danger"><?php echo $aciklamaErr;?></div>
+                        </div>
                         <div class="input-group mb-3">
                             <input type="file" name="imageFile" id="imageFile" class="form-control">
                             <label for="imageFile" class="input-group-text">Yükle</label>                            
@@ -76,4 +86,5 @@
         </div>       
         
     </div>
+<?php include "partials/_editor.php"?>
 <?php include "partials/_footer.php"?>

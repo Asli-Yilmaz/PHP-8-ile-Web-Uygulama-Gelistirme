@@ -17,8 +17,8 @@
     $sonuc=getCourseById($id);
     $selectedCourse=mysqli_fetch_assoc($sonuc);
     $category=0;
-    $baslik=$altBaslik=$resim="";
-    $baslikErr=$altBaslikErr=$resimErr=$categoryErr="";
+    $baslik=$altBaslik=$resim=$aciklama="";
+    $baslikErr=$altBaslikErr=$resimErr=$categoryErr=$aciklamaErr="";
     if($_SERVER["REQUEST_METHOD"]=="POST"){
         
         
@@ -32,6 +32,11 @@
         }else{
             $altBaslik=safe_html($_POST["altBaslik"]);
         }
+        if(empty($_POST["aciklama"])){
+            $aciklamaErr="Açıklama boş geçilemez."."<br>";
+        }else{
+            $aciklama=safe_html($_POST["aciklama"]);
+        }
         if(empty($_FILES["imageFile"]["name"])){
             $resim=$selectedCourse["resim"];
         }else{
@@ -42,8 +47,8 @@
         $onay=$_POST["onay"]=="on"?1:0;
         $categories=$_POST["categories"];
         print_r($categories);
-        if(empty($baslikErr) && empty($altBaslikErr) && empty($resimErr) && empty($categoryErr)){
-            if(editCourse($id,$baslik,$altBaslik,$resim,$onay)){
+        if(empty($baslikErr) && empty($altBaslikErr) && empty($resimErr) && empty($categoryErr)&& empty($aciklamaErr)){
+            if(editCourse($id,$baslik,$altBaslik,$aciklama,$resim,$onay)){
                 clearCourseCategories($id);
                 if(count($categories)>0){
                     addCourseCategories($id,$categories);
@@ -74,6 +79,11 @@
                             <label for="altBaslik">Alt Başlık</label>
                             <textarea name="altBaslik" class="form-control"><?php echo $selectedCourse["altBaslik"];?></textarea>
                             <div class="text-danger"><?php echo $altBaslikErr;?></div>
+                        </div>
+                        <div class="mb-3">
+                            <label for="aciklama">Açıklama</label>
+                            <textarea name="aciklama" class="form-control"><?php echo $selectedCourse["aciklama"];?></textarea>
+                            <div class="text-danger"><?php echo $aciklamaErr;?></div>
                         </div>
                         <div>
                             <div class="input-group mb-3">
@@ -131,4 +141,5 @@
         </div>       
         
     </div>
+<?php include "partials/_editor.php"?>
 <?php include "partials/_footer.php"?>

@@ -46,7 +46,6 @@
 
         $onay=$_POST["onay"]=="on"?1:0;
         $categories=$_POST["categories"];
-        print_r($categories);
         if(empty($baslikErr) && empty($altBaslikErr) && empty($resimErr) && empty($categoryErr)&& empty($aciklamaErr)){
             if(editCourse($id,$baslik,$altBaslik,$aciklama,$resim,$onay)){
                 clearCourseCategories($id);
@@ -106,7 +105,7 @@
                     
                 </div>
                 <div class="col-3">
-                    <img src="img/<?php echo $selectedCourse["resim"];?>" class="fluid" alt="">
+                    <img src="img/<?php echo $selectedCourse["resim"];?>" class="fluid" alt="" style="width:300px;">
                     <hr>
                     <?php foreach(getCategories() as $c):?>
                         <div class="form-check">

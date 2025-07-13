@@ -6,6 +6,7 @@
 ?>
 
 <div class="list-group">
+    <a href="courses.php" class="list-group-item list-group-item-action">Tüm Kurslar</a>
     <?php 
     //onceden json dosyasından alınan kategori verisinin direkt db üzerinden alınması
         $sonuc=getCategories();

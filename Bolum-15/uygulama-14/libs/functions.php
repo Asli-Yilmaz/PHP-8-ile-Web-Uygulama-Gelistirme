@@ -94,7 +94,10 @@
         $sql="select * ".$query." limit $offset,$pageCount";
         $sonuc=mysqli_query($baglanti,$sql);
         mysqli_close($baglanti);
-        return $sonuc;
+        return array(
+            "total_pages"=>$total_pages,
+            "data"=>$sonuc
+        );
     }
     function clearCourseCategories(int $kurs_id){
         include "ayar.php";

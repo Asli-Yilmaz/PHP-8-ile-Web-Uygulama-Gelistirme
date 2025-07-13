@@ -30,9 +30,9 @@ require "libs/functions.php";
         </div>
         <div class="col-9">
             <?php include "partials/_title.php" ?>
-            <?php if (mysqli_num_rows($sonuclar) > 0): ?>
+            <?php if (mysqli_num_rows($sonuclar["data"]) > 0): ?>
                 <?php
-                while ($kurs = mysqli_fetch_assoc($sonuclar)) : ?>
+                while ($kurs = mysqli_fetch_assoc($sonuclar["data"])) : ?>
                     <!--if bloğunun açılışı-->
                     <?php if ($kurs["onay"]):  ?>
                         <div class="card mb-3">
@@ -83,16 +83,34 @@ require "libs/functions.php";
                     Kurs Bulunamadı.
                 </div>
             <?php endif; ?>
-        
-            <nav aria-label="Page navigation example">
-                <ul class="pagination">
-                    <li class="page-item"><a class="page-link" href="#">Previous</a></li>
-                    <li class="page-item"><a class="page-link" href="#">1</a></li>
-                    <li class="page-item"><a class="page-link" href="#">2</a></li>
-                    <li class="page-item"><a class="page-link" href="#">3</a></li>
-                    <li class="page-item"><a class="page-link" href="#">Next</a></li>
-                </ul>
-            </nav>
+            
+            <?php if($sonuclar["total_pages"]>1):?>
+                <nav aria-label="Page navigation example">
+                    <ul class="pagination">
+                        <?php for($x=1;$x<=$sonuclar["total_pages"];$x++):?>
+                            <li class="page-item
+                                <?php if($x==$page) echo "active";?>
+                            ">
+                                <a class="page-link" href="
+                                    <?php
+                                        $url="?page=".$x;
+                                        if(!empty($categoryId)){
+                                            $url.="&categoryid=".$categoryId;
+                                        }
+                                        if(!empty($keyword)){
+                                            $url.="&keyword=".$keyword;
+                                        }
+                                        
+                                        echo $url;
+                                    ?>    
+                                ">
+                                    <?php echo $x;?>
+                                </a>
+                            </li>
+                        <?php endfor;?>
+                    </ul>
+                </nav>
+            <?php endif;?>
         </div>
     </div>
     

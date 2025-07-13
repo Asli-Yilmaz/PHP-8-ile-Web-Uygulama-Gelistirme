@@ -1,5 +1,17 @@
+<?php
+     if(isset($_GET["categoryid"]) && is_numeric($_GET["categoryid"])){
+        $secilenKategori=$_GET["categoryid"];
+        $sonuc=getCoursesByCategoryId($secilenKategori);
+    }else{
+        $sounuc=getCourses();
+    }
 
-                <?php foreach(getDb()["kurslar"] as $key=>$kurs):?>
+?>
+
+<?php if(mysqli_num_rows($sonuc)>0):?>
+<?php  
+    while($kurs=mysqli_fetch_assoc($sonuc))
+:?>
                     <!--if bloğunun açılışı-->
                     <?php if ($kurs["onay"]):  ?>
                         <div class="card mb-3">
@@ -43,5 +55,10 @@
                             
                         </div>
                     <!--if bloğunun kapanışı-->
-                    <?php endif?>
-                <?php endforeach ?>
+                    <?php endif;?>
+<?php endwhile?>
+<?php else:?>
+    <div class="alert alert-warning">
+        Kurs Bulunamadı.
+    </div>
+<?php endif;?>

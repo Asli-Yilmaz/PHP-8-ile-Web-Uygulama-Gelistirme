@@ -95,6 +95,13 @@
         mysqli_close($baglanti);
         return $sonuc;
     }
+    function getCoursesByCategoryId(int $id){
+        include "ayar.php";
+        $query="SELECT * FROM kurs_kategori kc inner join kurslar k on kc.kurs_id=k.id where kc.kategori_id=$id and k.onay=1";
+        $sonuc=mysqli_query($baglanti,$query);
+        mysqli_close($baglanti);
+        return $sonuc;
+    }
     function getCategoriesById(int $coursId){
         include "ayar.php";
         $query="SELECT * from kurs_kategori kc inner join kategoriler c on kc.kategori_id=c.id where kc.kurs_id=$coursId;";

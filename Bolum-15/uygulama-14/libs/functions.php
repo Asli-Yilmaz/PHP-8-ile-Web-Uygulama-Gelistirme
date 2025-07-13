@@ -70,6 +70,32 @@
         mysqli_close($baglanti);
         return $sonuc;
     }
+    function getCoursesByFilters($categoryId,$keyword,$page){
+        include "ayar.php";
+        $pageCount=2;
+        $offset=($page-1)*$pageCount;
+        $query="";
+        if(!empty($categoryId))
+            $query="FROM kurs_kategori kc inner join kurslar k on kc.kurs_id=k.id where kc.kategori_id=$categoryId and k.onay=1";
+        else{
+            $query="FROM kurslar where onay=1";
+        }
+
+        if(!empty($keyword)){
+            $query.=" and baslik like '%$keyword%' or altbaslik like '%$keyword%' or aciklama like '%$keyword%'";
+        }
+        //sayfalama işlemi için önce kaç kurs döndüğünü bulmalıyız
+        $total_sql="select count(*) ".$query;
+        $count_data=mysqli_query($baglanti,$total_sql);
+        $count=mysqli_fetch_array($count_data)[0];
+        $total_pages=ceil($count/$pageCount);
+
+        //limit ötelenecek kayıt, alınacak kayıt sayısı
+        $sql="select * ".$query." limit $offset,$pageCount";
+        $sonuc=mysqli_query($baglanti,$sql);
+        mysqli_close($baglanti);
+        return $sonuc;
+    }
     function clearCourseCategories(int $kurs_id){
         include "ayar.php";
         $query="DELETE FROM kurs_kategori WHERE kurs_id=$kurs_id";

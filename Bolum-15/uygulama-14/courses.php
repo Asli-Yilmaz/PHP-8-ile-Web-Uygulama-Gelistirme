@@ -9,14 +9,16 @@ require "libs/functions.php";
 
 ?>
 <?php
-if (isset($_GET["categoryid"]) && is_numeric($_GET["categoryid"])) {
-    $secilenKategori = $_GET["categoryid"];
-    $sonuclar = getCoursesByCategoryId($secilenKategori);
-} elseif (isset($_GET["q"])) {
-    $sonuclar = getCoursesByKeyword($_GET["q"]);
-} else {
-    $sonuclar = getCourses(false,true);
-}
+    $categoryId="";
+    $keyword="";
+    $page=1;
+    if(isset($_GET["categoryid"]) && is_numeric($_GET["categoryid"])) $categoryId=$_GET["categoryid"];
+    if (isset($_GET["q"]))$keyword=$_GET["q"];
+    if (isset($_GET["page"]) && is_numeric($_GET["page"])) $page=$_GET["page"];
+
+    $sonuclar=getCoursesByFilters($categoryId,$keyword,$page);
+
+    
 ?>
 <?php include "partials/_header.php" ?>
 <?php include "partials/_navbar.php" ?>
@@ -81,8 +83,19 @@ if (isset($_GET["categoryid"]) && is_numeric($_GET["categoryid"])) {
                     Kurs Bulunamadı.
                 </div>
             <?php endif; ?>
+        
+            <nav aria-label="Page navigation example">
+                <ul class="pagination">
+                    <li class="page-item"><a class="page-link" href="#">Previous</a></li>
+                    <li class="page-item"><a class="page-link" href="#">1</a></li>
+                    <li class="page-item"><a class="page-link" href="#">2</a></li>
+                    <li class="page-item"><a class="page-link" href="#">3</a></li>
+                    <li class="page-item"><a class="page-link" href="#">Next</a></li>
+                </ul>
+            </nav>
         </div>
     </div>
+    
 
 </div>
 <?php include "partials/_footer.php" ?>

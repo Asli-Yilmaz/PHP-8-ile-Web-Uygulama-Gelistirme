@@ -2,8 +2,11 @@
      if(isset($_GET["categoryid"]) && is_numeric($_GET["categoryid"])){
         $secilenKategori=$_GET["categoryid"];
         $sonuc=getCoursesByCategoryId($secilenKategori);
-    }else{
-        $sounuc=getCourses();
+    }elseif(isset($_GET["q"])){
+        $sonuc=getCoursesByKeyword($_GET["q"]);
+    }    
+    else{
+        $sonuc=getCourses();
     }
 
 ?>

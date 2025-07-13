@@ -102,6 +102,14 @@
         mysqli_close($baglanti);
         return $sonuc;
     }
+    function getCoursesByKeyword(string $q){
+        include "ayar.php";
+        $query="SELECT * FROM kurslar where baslik like '%$q%' or altbaslik like '%$q%' or aciklama like '%$q%';";
+        $sonuc=mysqli_query($baglanti,$query);
+        mysqli_close($baglanti);
+        return $sonuc;
+    }
+    
     function getCategoriesById(int $coursId){
         include "ayar.php";
         $query="SELECT * from kurs_kategori kc inner join kategoriler c on kc.kategori_id=c.id where kc.kurs_id=$coursId;";

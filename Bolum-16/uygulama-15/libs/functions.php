@@ -1,5 +1,9 @@
 <?php
 
+    function isLoggedIn(){
+        return isset($_SESSION["loggedIn"]) && $_SESSION["loggedIn"]==true;
+    }
+
     function addNewUser($username,$email,$password){
         include "ayar.php";
         $query="INSERT INTO kullanicilar(username,email,password) VALUES (?,?,?)";

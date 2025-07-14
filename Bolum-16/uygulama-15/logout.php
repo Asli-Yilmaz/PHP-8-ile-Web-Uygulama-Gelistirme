@@ -1,6 +1,8 @@
 <?php
-    setcookie("auth[username]","",time()-60);
-    setcookie("auth[name]","",time()-60);
+    session_start();
+    //session sıfırlama
+    $_SESSION=array();
+    session_destroy();
 
     header("location:login.php");
 

@@ -4,7 +4,7 @@
 require "libs/variables.php";
 //buradaki fonksiyonları functions klasorune ekledik
 require "libs/functions.php";
-
+session_start();
 
 
 ?>

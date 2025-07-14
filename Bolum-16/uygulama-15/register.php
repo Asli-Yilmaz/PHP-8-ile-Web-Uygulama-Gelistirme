@@ -50,8 +50,8 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
     } else {
         $sql="SELECT id FROM kullanicilar WHERE email=?";
         if($stmt=mysqli_prepare($baglanti,$sql)){
-            $param_username=safe_html($_POST["email"]);
-            mysqli_stmt_bind_param($stmt,"s",$param_username);
+            $param_email=safe_html($_POST["email"]);
+            mysqli_stmt_bind_param($stmt,"s",$param_email);
 
             if(mysqli_stmt_execute($stmt)){
                 mysqli_stmt_store_result($stmt);

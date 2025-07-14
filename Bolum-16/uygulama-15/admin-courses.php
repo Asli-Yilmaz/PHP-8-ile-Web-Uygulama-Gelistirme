@@ -4,13 +4,17 @@
     require "libs/variables.php";
     //buradaki fonksiyonları functions klasorune ekledik
     require "libs/functions.php";
+    if(!isAdmin()){
+        header("location: unauthorized.php");
+    }
 
     
 
 ?>
+<?php include "<partials/_message.php"?>
 <?php include "partials/_header.php"?>
 <?php include "partials/_navbar.php"?>
-<?php include "<partials/_message.php"?>
+
 
 <div class="container my-3">
 

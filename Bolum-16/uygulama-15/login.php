@@ -6,7 +6,7 @@
     //buradaki fonksiyonları functions klasorune ekledik
     require "libs/functions.php";
 
-    session_start();
+    
     if(isLoggedIn()){
         header("Location:index.php");
     }
@@ -27,19 +27,20 @@
             $password = safe_html($_POST["password"]);
         }
         if(empty($usernameErr)&& empty($passwordErr)){
-            $query="SELECT id,username, password FROM kullanicilar WHERE username=?";
+            $query="SELECT id,username, password , user_type FROM kullanicilar WHERE username=?";
             if($statement=mysqli_prepare($baglanti,$query)){
                 mysqli_stmt_bind_param($statement,"s",$username);
                 if(mysqli_stmt_execute($statement)){
                     mysqli_stmt_store_result($statement);
                     if(mysqli_stmt_num_rows($statement)==1){
                         //parola kontrolü
-                        mysqli_stmt_bind_result($statement,$id,$username,$hashed_password);
+                        mysqli_stmt_bind_result($statement,$id,$username,$hashed_password,$user_type);
                         if(mysqli_stmt_fetch($statement)){
                             if(password_verify($password,$hashed_password)){
                                 $_SESSION["loggedIn"]=true;
                                 $_SESSION["id"]=$id;
                                 $_SESSION["username"]=$username;
+                                $_SESSION["user_type"]=$user_type;
                                 header("location: index.php");
                             }else{
                                 $loginErr="Parola yanlış.";

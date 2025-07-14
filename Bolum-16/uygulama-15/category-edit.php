@@ -11,7 +11,6 @@
 <?php include "partials/_navbar.php"?>
 
 <?php
-    session_start();
 
     $id=$_GET["id"];
     $sonuc=getCategoryById($id);

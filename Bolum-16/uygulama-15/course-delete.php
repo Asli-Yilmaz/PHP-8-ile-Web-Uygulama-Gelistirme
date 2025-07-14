@@ -8,7 +8,6 @@
 
 ?>
 <?php 
-    session_start();
     if(empty($_GET["id"])){
         header("location: admin-courses.php");
     }

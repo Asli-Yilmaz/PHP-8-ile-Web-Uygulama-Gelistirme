@@ -11,7 +11,6 @@
 <?php include "partials/_navbar.php"?>
 
 <?php
-    session_start();
     $baslik=$altBaslik=$resim=$yayinTarihi=$aciklama="";
     $baslikErr=$altBaslikErr=$resimErr=$yayinTarihiErr=$aciklamaErr="";
     

@@ -1,5 +1,5 @@
 <?php
-
+include "libs/ayar.php";
 //buradaki değişkenleri variables klasorune ekledik
 require "libs/variables.php";
 //buradaki fonksiyonları functions klasorune ekledik
@@ -23,6 +23,24 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
         $usernameErr = "Kullanıcı adı 5-20 karakter aralığında olmalıdır." . "<br>";
     } 
     else {
+        $sql="SELECT id FROM kullanicilar WHERE username=?";
+        if($stmt=mysqli_prepare($baglanti,$sql)){
+            $param_username=safe_html($_POST["username"]);
+            mysqli_stmt_bind_param($stmt,"s",$param_username);
+
+            if(mysqli_stmt_execute($stmt)){
+                mysqli_stmt_store_result($stmt);
+                if(mysqli_stmt_num_rows($stmt)==1){
+                    $usernameErr="Kullanıcı adı alınmış. Lütfen başka bir kullanıcı adı deneyin.";
+                }else{
+                    $username=safe_html($_POST["username"]);
+                }
+
+            }else{
+                echo mysqli_error($baglanti);
+                echo "Hata oluştu.";
+            }
+        }
         $username = safe_html($_POST["username"]);
     }
     if (empty($_POST["email"])) {
@@ -30,6 +48,24 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
     }elseif(!filter_var($_POST["email"],FILTER_VALIDATE_EMAIL)){
         $emailErr = "E-posta formatına uyulmalıdır";
     } else {
+        $sql="SELECT id FROM kullanicilar WHERE email=?";
+        if($stmt=mysqli_prepare($baglanti,$sql)){
+            $param_username=safe_html($_POST["email"]);
+            mysqli_stmt_bind_param($stmt,"s",$param_username);
+
+            if(mysqli_stmt_execute($stmt)){
+                mysqli_stmt_store_result($stmt);
+                if(mysqli_stmt_num_rows($stmt)==1){
+                    $emailErr="Bu email adına hesap mevcut. Lütfen başka bir email adresi deneyin.";
+                }else{
+                    $email=safe_html($_POST["email"]);
+                }
+
+            }else{
+                echo mysqli_error($baglanti);
+                echo "Hata oluştu.";
+            }
+        }
         $email = safe_html($_POST["email"]);
     }
     if (empty($_POST["password"])) {

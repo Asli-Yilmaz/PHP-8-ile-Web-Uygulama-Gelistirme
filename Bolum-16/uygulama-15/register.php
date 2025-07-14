@@ -42,6 +42,11 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
     } else {
         $repassword = safe_html($_POST["repassword"]);
     }
+
+    if(empty($usernameErr)&&empty($passwordErr)&&empty($repasswordErr)){
+        addNewUser($username,$email,$password);
+    }
+
 }
 ?>
 <!-- div.container yaz enter bas -->

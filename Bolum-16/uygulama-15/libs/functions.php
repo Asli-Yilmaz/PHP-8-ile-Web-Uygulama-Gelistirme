@@ -1,5 +1,22 @@
 <?php
 
+    function addNewUser($username,$email,$password){
+        include "ayar.php";
+        $query="INSERT INTO kullanicilar(username,email,password) VALUES (?,?,?)";
+        if($statement=mysqli_prepare($baglanti,$query)){
+            $password=password_hash($password,PASSWORD_DEFAULT);
+            mysqli_stmt_bind_param($statement,"sss",$username,$email,$password);
+            if(mysqli_stmt_execute($statement)){
+                header("location:login.php");
+            }else{
+                echo mysqli_error($baglanti);
+                echo "<br>";
+                echo "hata oluştu";
+            }
+        }
+
+    }
+
     function getCategories(){
         include "ayar.php";
 

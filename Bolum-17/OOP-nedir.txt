@@ -1,0 +1,10 @@
+OOP'de gerçek hayat problemlerinin yazılım tarafına daha kolay aktarılması
+için class yapısı kullanılır. class içinde propertyler ve fonksiyonlar olabilir. class içindeki fonksiyonlara method denilir
+Örneğin Person classından türeterek oluşturduğumuz her nesneye instance veya object adı da  verilir.
+Person classında tutulan propertylerin değerleri her instanceda farklılık gösterebilir
+örneğin ad,soyad,doğum tarihi propertyleri olan bir Person classından pek çok kişi için ayrı 
+aayrı instancelar üretilebilir.
+OOP ile 
+- daha düzenli kod yazılır
+- yazılan kodlar özellikle büyük projeler için çok daha performanslı olur 
+- yine büyük projelerde sonradan yapılacak müdahaleler kolaylaşır

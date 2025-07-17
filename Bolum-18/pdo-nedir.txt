@@ -1,0 +1,4 @@
+şimdiye kadar php kurulumuyla hazır gelen mysqli kütüphanesı kullanarak MySQL veri tabanına bağlanarak
+veri tabanı sorgu işlemleri gerçekleştirildi.
+ancak farklı veri tabanı sunucularıyla(postgresql,oracle vs) çalışmak istendildiğinde mysqli yeterli olmaz
+bu durumda PDO (php Data Object) isimli bir kütüpahenyle çalışmak gerekir.

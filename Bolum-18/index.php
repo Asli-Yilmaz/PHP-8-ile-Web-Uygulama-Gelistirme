@@ -25,14 +25,46 @@
     //     echo $urun->price."<br>";
     // }
     
-    //prepared sorgular
-    $product_price=30000;
-    $sql="SELECT * FROM products WHERE price>?";
+    // //prepared sorgular
+    // $product_price=30000;
+    // $sql="SELECT * FROM products WHERE price>?";
+    // $stmt=$pdo->prepare($sql);
+    // $stmt->execute([$product_price]);
+    // $urunler=$stmt->fetchAll();
+    // foreach($urunler as $urun){
+    //     echo $urun->title."<br>";
+    // }
+
+    //isert data
+
+    $title="Samsung S23";
+    $price=25000;
+    $description="android Samsung S23 model telefon";
+
+    // //$sql="INSERT INTO products(title,price,description) VALUES(?,?,?)";
+    // //veya alan isimleri aşağıdaki gibi de girilebilir
+    // $sql="INSERT INTO products(title,price,description) VALUES(:title,:price,:description)";
+    // $stmt=$pdo->prepare($sql);
+    // $stmt->execute(['title'=>$title,'price'=>$price,'description'=>$description]);
+
+    // echo "Kayıt eklendi.";
+
+    //multiple insert operation
+    $sql="INSERT INTO products(title,price,description) VALUES(:title,:price,:description)";
     $stmt=$pdo->prepare($sql);
-    $stmt->execute([$product_price]);
-    $urunler=$stmt->fetchAll();
-    foreach($urunler as $urun){
-        echo $urun->title."<br>";
-    }
+
+    $stmt->bindParam(':title',$title);
+    $stmt->bindParam(':price',$price);
+    $stmt->bindParam(':description',$description);
+
+    $stmt->execute();
+
+    //sadece parametreler değiştiirlip execute tekrar çağrıldığında sql soegusu bu yeni değerler için yeniden çalışır
+    $title="Samsung S24";
+    $price=35000;
+    $description="android Samsung S24 model telefon";
+
+    $stmt->execute();
+
 
 ?>

@@ -37,34 +37,54 @@
 
     //isert data
 
-    $title="Samsung S23";
-    $price=25000;
-    $description="android Samsung S23 model telefon";
+    // $title="Samsung S23";
+    // $price=25000;
+    // $description="android Samsung S23 model telefon";
 
-    // //$sql="INSERT INTO products(title,price,description) VALUES(?,?,?)";
-    // //veya alan isimleri aşağıdaki gibi de girilebilir
+    // // //$sql="INSERT INTO products(title,price,description) VALUES(?,?,?)";
+    // // //veya alan isimleri aşağıdaki gibi de girilebilir
+    // // $sql="INSERT INTO products(title,price,description) VALUES(:title,:price,:description)";
+    // // $stmt=$pdo->prepare($sql);
+    // // $stmt->execute(['title'=>$title,'price'=>$price,'description'=>$description]);
+
+    // // echo "Kayıt eklendi.";
+
+    // //multiple insert operation
     // $sql="INSERT INTO products(title,price,description) VALUES(:title,:price,:description)";
     // $stmt=$pdo->prepare($sql);
-    // $stmt->execute(['title'=>$title,'price'=>$price,'description'=>$description]);
 
-    // echo "Kayıt eklendi.";
+    // $stmt->bindParam(':title',$title);
+    // $stmt->bindParam(':price',$price);
+    // $stmt->bindParam(':description',$description);
 
-    //multiple insert operation
-    $sql="INSERT INTO products(title,price,description) VALUES(:title,:price,:description)";
+    // $stmt->execute();
+
+    // //sadece parametreler değiştirilip execute tekrar çağrıldığında sql soegusu bu yeni değerler için yeniden çalışır
+    // $title="Samsung S24";
+    // $price=35000;
+    // $description="android Samsung S24 model telefon";
+
+    // $stmt->execute();
+
+
+    //kayıt güncelleme
+    // $id=1;
+    // $title="samsung z fold 7";
+    // $sql="UPDATE products SET title=:title WHERE id=:id";
+    // $stmt=$pdo->prepare($sql);
+    // $stmt->execute(['id'=>$id, 'title'=>$title]);
+
+    // echo $stmt->rowCount()." adet kayıt güncellendi.";
+
+    //kayıt silme
+
+    $id=1;
+    $sql="DELETE FROM  products WHERE id=:id";
     $stmt=$pdo->prepare($sql);
+    $stmt->execute(['id'=>$id]);
 
-    $stmt->bindParam(':title',$title);
-    $stmt->bindParam(':price',$price);
-    $stmt->bindParam(':description',$description);
+    echo $stmt->rowCount()." adet kayıt SİLİNDİ."
 
-    $stmt->execute();
-
-    //sadece parametreler değiştiirlip execute tekrar çağrıldığında sql soegusu bu yeni değerler için yeniden çalışır
-    $title="Samsung S24";
-    $price=35000;
-    $description="android Samsung S24 model telefon";
-
-    $stmt->execute();
 
 
 ?>

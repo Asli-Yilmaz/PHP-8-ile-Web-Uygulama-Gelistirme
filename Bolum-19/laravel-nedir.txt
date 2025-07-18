@@ -1,0 +1,3 @@
+php dilinden sonra bir web frameworku olan laraveli öğrenmek web sayfalarını geliştirir
+kolaylıklar sağlayan çeşitli kütüphaneler bir araya gelerek frameworku oluşturur
+böylece kod karmaşıklığından kurtuluruz

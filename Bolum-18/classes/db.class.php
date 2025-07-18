@@ -18,7 +18,7 @@
                 
                 return $pdo;
             }catch(PDOException $error){
-                echo "Bağlantu hatası: ".$error->getMessage()."<br>";
+                echo "Bağlantı hatası: ".$error->getMessage()."<br>";
             }
         }
     }

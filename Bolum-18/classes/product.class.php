@@ -14,6 +14,18 @@
             $stmt->execute(['id'=>$id]);
             return $stmt->fetch();
         }
+        public function createProduct($title,$price,$description){
+            $sql="INSERT INTO products(title,price,description) VALUES(:title,:price,:description)";
+            $stmt=$this->connect()->prepare($sql);
+            try{
+                return $stmt->execute(['title'=>$title,'price'=>$price,'description'=>$description]);
+            }catch(PDOException $e){
+                echo "Kaydetme işlemi başarısız : ".$e->getMessage()."<br>";
+            }
+            
+
+
+        }
     }
 
 ?>

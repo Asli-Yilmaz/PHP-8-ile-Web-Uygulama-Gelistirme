@@ -21,11 +21,22 @@
                 return $stmt->execute(['title'=>$title,'price'=>$price,'description'=>$description]);
             }catch(PDOException $e){
                 echo "Kaydetme işlemi başarısız : ".$e->getMessage()."<br>";
-            }
-            
+            }        
 
 
         }
+        public function editProduct($id, $title,$price,$description){
+            $sql="UPDATE products SET title=:title,price=:price,description=:description where id=:id";
+            $stmt=$this->connect()->prepare($sql);
+            try{
+                return $stmt->execute(['id'=>$id,'title'=>$title,'price'=>$price,'description'=>$description]);
+            }catch(PDOException $e){
+                echo "Güncelleme işlemi başarısız : ".$e->getMessage()."<br>";
+            }        
+
+
+        }
+
     }
 
 ?>
